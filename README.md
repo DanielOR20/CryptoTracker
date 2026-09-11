@@ -1,16 +1,45 @@
-# React + Vite
+# ⚡ CryptoFlow Auto - Dashboard de Monitoreo Cripto en Tiempo Real
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web desarrollada en **React + Vite** orientada a la supervisión automatizada de cotizaciones de criptomonedas mediante consumo asíncrono de APIs y gestión de ciclos de vida con React Hooks.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Características Principales
 
-## React Compiler
+* **Automatización Cíclica (Polling Trigger):** Implementación de sondeo continuo en segundo plano usando `setInterval` y `useEffect` con limpieza de memoria activa (`clearInterval`).
+* **Consumo de Datos en Vivo:** Integración directa con la API pública de **Binance** para obtener precios spot, máximos, mínimos y variaciones porcentuales de 24 horas.
+* **Control de Estados Visuales:** Mapeo y renderizado de 4 estados discretos del trigger:
+  * `inactivo`: Temporizador en pausa manual.
+  * `ejecutando`: Solicitud asíncrona en curso.
+  * `exito`: Datos recuperados y parseados correctamente.
+  * `error`: Captura de excepciones con manejo de fallos y reintentos.
+* **Filtros y Ordenamiento:** Tabla interactiva con búsqueda por texto y ordenamiento por capitalización, precio o variación.
+* **Panel de Auditoría (Logs):** Registro secuencial de latencias, timestamps y estado de cada ciclo ejecutado.
+* **Reglas de Alerta:** Módulo para programar condiciones de precio personalizadas sobre los activos.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías Utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Frontend:** React 18 / 19, Vite, JavaScript (ES6+), CSS3.
+* **API de Datos:** Binance Public REST API (`/api/v3/ticker/24hr`).
+* **Herramienta de Flujos:** n8n para el modelado visual del workflow de automatización.
+* **Control de Versiones:** Git y GitHub.
+
+---
+
+## 📂 Estructura del Proyecto
+
+```text
+cryptotracker/
+├── src/
+│   ├── components/       # Componentes reutilizables (CryptoCard, CryptoTable, StatusBadge, LogViewer)
+│   ├── hooks/            # Custom hooks con la lógica del temporizador y alertas (useCryptoTracker)
+│   ├── pages/            # Vistas principales (DashboardPage, AutomationPage, AlertsPage)
+│   ├── routes/           # Manejador de navegación interna (AppRoutes)
+│   ├── services/         # Llamadas a la API y peticiones fetch (cryptoService)
+│   ├── styles/           # Hojas de estilo y variables globales (global.css)
+│   ├── App.jsx           # Componente raíz
+│   └── main.jsx          # Punto de entrada de React
+├── package.json
+└── README.md
