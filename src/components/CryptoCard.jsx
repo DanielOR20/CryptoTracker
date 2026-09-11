@@ -6,42 +6,46 @@ export const CryptoCard = ({ crypto }) => {
   return (
     <div
       style={{
-        backgroundColor: '#ffffff',
-        borderRadius: '12px',
+        background: 'linear-gradient(135deg, #131c2e 0%, #0d1524 100%)',
+        borderRadius: '14px',
         padding: '20px',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-        border: '1px solid #e5e7eb',
+        border: '1px solid #1e293b',
+        boxShadow: '0 8px 20px rgba(0, 0, 0, 0.35)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        transition: 'transform 0.2s',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-        <img src={crypto.image} alt={crypto.name} style={{ width: '36px', height: '36px' }} />
-        <div>
-          <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '600', color: '#111827' }}>
-            {crypto.name}
-          </h3>
-          <span style={{ fontSize: '0.85rem', color: '#6b7280', textTransform: 'uppercase' }}>
-            {crypto.symbol}
-          </span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src={crypto.image} alt={crypto.name} style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
+          <div>
+            <div style={{ fontWeight: '700', fontSize: '1rem', color: '#f8fafc' }}>{crypto.name}</div>
+            <div style={{ fontSize: '0.75rem', color: '#64748b' }}>{crypto.symbol}</div>
+          </div>
         </div>
-      </div>
-
-      <div>
-        <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#111827', marginBottom: '8px' }}>
-          ${crypto.current_price?.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-        </div>
-        <div
+        <span
           style={{
-            fontSize: '0.875rem',
-            fontWeight: '600',
-            color: isPositive ? '#059669' : '#dc2626',
+            padding: '4px 8px',
+            borderRadius: '6px',
+            fontSize: '0.75rem',
+            fontWeight: '700',
+            backgroundColor: isPositive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+            color: isPositive ? '#10b981' : '#f87171',
+            border: `1px solid ${isPositive ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
           }}
         >
           {isPositive ? '▲ +' : '▼ '}
-          {crypto.price_change_percentage_24h?.toFixed(2)}% (24h)
+          {crypto.price_change_percentage_24h.toFixed(2)}%
+        </span>
+      </div>
+
+      <div>
+        <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '4px' }}>Precio Spot (USD)</div>
+        <div style={{ fontSize: '1.5rem', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.5px' }}>
+          ${crypto.current_price >= 1 
+            ? crypto.current_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            : crypto.current_price.toFixed(4)}
         </div>
       </div>
     </div>
